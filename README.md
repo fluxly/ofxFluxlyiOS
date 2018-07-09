@@ -1,2 +1,1 @@
-# ofxFluxlyiOS
-Fluxly for iOS
+# fluxalodeon
