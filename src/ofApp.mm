@@ -448,7 +448,8 @@ void ofApp::update() {
                                 shared_ptr<FluxlyJointConnection> jc = shared_ptr<FluxlyJointConnection>(new FluxlyJointConnection);
                                 ofxBox2dJoint *j = new ofxBox2dJoint;
                                 j->setup(box2d.getWorld(), circles[tempId1].get()->body, circles[tempId2].get()->body);
-                                j->setLength(circles[tempId1]->w/2 + circles[tempId2]->w/2 - 2);
+                                if (device == PHONE) j->setLength(circles[tempId1]->w/2 + circles[tempId2]->w/2 - 2);
+                                if (device == TABLET) j->setLength(circles[tempId1]->w/2 + circles[tempId2]->w/2);
                                 jc.get()->id1 = tempId1;
                                 jc.get()->id2 = tempId2;
                                 jc.get()->joint = j;
@@ -565,13 +566,13 @@ void ofApp::draw() {
                                 appIconY + appIconW/2 + helpTextHeight*3 ) ;
 #endif
             break;
-        case SAVE_EXIT:
+        case SAVE_EXIT_PART_1:
             ofSetHexColor(0xFFFFFF);
             ofSetRectMode(OF_RECTMODE_CORNER);
             background[backgroundId].draw(0, 0, worldW, worldH);
             ofSetRectMode(OF_RECTMODE_CENTER);
             for (int i=0; i<circles.size(); i++) {
-                circles[i].get()->drawSoundWave(2);
+                circles[i].get()->drawSoundWave(3);
             }
             for (int i=0; i<circles.size(); i++) {
                 circles[i].get()->draw();
@@ -580,9 +581,13 @@ void ofApp::draw() {
                 ofSetColor( ofColor::fromHex(0xff0000) );
                 joints[i]->joint->draw();
             }
+            ofSetHexColor(0xFFFFFF);
             screenshot.grabScreen(0, 0, screenW, screenH);
-            screenshot.save( mainMenu->menuItems[currentGame]->filename);
             saving.draw(screenW/2, screenH/2);
+            scene = SAVE_EXIT_PART_2;
+            break;
+        case SAVE_EXIT_PART_2:
+            screenshot.save( mainMenu->menuItems[currentGame]->filename);
             //ofLog(OF_LOG_VERBOSE, "Screenshot");
             saveGame();
             destroyGame();
@@ -877,7 +882,7 @@ void ofApp::touchUp(ofTouchEventArgs & touch){
             //ofLog(OF_LOG_VERBOSE, "Checking exit: %i, %i, %f, %f", startTouchX, startTouchY, touch.x, touch.y);
             // Check to see if exit pushed
             if (controlInBounds(EXIT_GAME, touch.x, touch.y)) {
-                scene = SAVE_EXIT;
+                scene = SAVE_EXIT_PART_1;
                 startTouchId = -1;
                 startTouchX = 0;
                 startTouchY = 0;
@@ -1177,9 +1182,8 @@ void ofApp::helpLayerScript() {
             }*/
             //ofLog(OF_LOG_VERBOSE, "timer %i", currentHelpState);
             break;
-        case (SAVE_EXIT):
-            //helpTimer = 0;
-            //currentHelpState = -1;
+        case (SAVE_EXIT_PART_1):
+
             break;
         case (GAME_SCENE) :
             helpTimer = (helpTimer + 1) % (THREE_SECONDS * 19);

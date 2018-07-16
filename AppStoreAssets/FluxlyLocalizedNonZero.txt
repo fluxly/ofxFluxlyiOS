@@ -1,7 +1,8 @@
+Now with Retina Display support.
+
 Minor user interface improvements.
 
 This is the full version of Fluxly, the musical physics looper. This version has access to pre-recorded samples and can record samples.
-
 
 Fluxly is a musical electronic synthesizer inspired by Leon Theremin where you create new instrument scenes by moving and spinning colorful Fluxum sound sample players. Fluxly brings a whole new approach to knob twiddling and sound making. 
 
@@ -14,6 +15,9 @@ Fluxly was built using openFrameworks, Box2d, libPd and Pure Data. See more at f
 
 
 Subtitle: Musical-Physik-Looper
+
+Jetzt mit Retina Display-Unterstützung.
+
 
 Geringfügige Verbesserungen der Benutzeroberfläche
 
@@ -30,6 +34,8 @@ Fluxly wurde mit openFrameworks, Box2d, libPd und Pure Data erstellt. Sehen Sie 
 
 
 SUbtitle: Looper de la physique musicale
+
+Maintenant avec le support de Retina Display.
 
 Améliorations mineures de l'interface utilisateur.
 
@@ -48,6 +54,8 @@ Fluxly a été construit en utilisant openFrameworks, Box2d, libPd et Pure Data.
 
 Subtitle: Looper de física musical
 
+Ahora con soporte Retina Display.
+
 Pequeñas mejoras en la interfaz de usuario.
 
 Esta es la versión completa de Fluxly, el looper de física musical. Esta versión tiene acceso a muestras pregrabadas y puede grabar muestras.
@@ -64,6 +72,8 @@ Fluxly se creó utilizando openFrameworks, Box2d, libPd y Pure Data. Vea más en
 
 
 Subtitle: 動きのあるミュージカルルーパー
+
+今網膜ディスプレイをサポートしています。
 
 マイナーなユーザーインターフェイスの改善。
 
@@ -82,6 +92,8 @@ FluxlyはopenFrameworks、Box2d、libPd、Pure Dataを使用して構築され�
 
 
 Subtitle ьная физика Looper
+
+Теперь с поддержкой Retina Display.
 
 Небольшие улучшения пользовательского интерфейса.
 
@@ -103,6 +115,7 @@ Fluxly был создан с использованием openFrameworks, Box2d
 
 Subtitle 与运动的音乐圈
 
+现在支持Retina Display。
 
 次要的用户界面改进。
 

@@ -39,8 +39,9 @@
 #define MENU_SCENE (0)
 #define GAME_SCENE (1)
 #define RECORDING_SCENE (2)
-#define SAVE_EXIT (3)
-#define SELECT_SAMPLE_SCENE (4)
+#define SAVE_EXIT_PART_1 (3)
+#define SAVE_EXIT_PART_2 (4)
+#define SELECT_SAMPLE_SCENE (5)
 
 #define PHONE (0)
 #define TABLET (1)
