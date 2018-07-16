@@ -1,3 +1,9 @@
+//  iOS version of Fluxly, the musical physics looper
+//
+//  Created by Shawn Wallace on 11/14/17.
+//  Released April 2018 to the App Store
+//  See the LICENSE file for copyright information
+
 #include "ofApp.h"
 #import <AVFoundation/AVFoundation.h>
 

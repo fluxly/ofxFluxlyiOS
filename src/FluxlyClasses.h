@@ -1,9 +1,9 @@
 //
 //  FluxlyClasses.h
-//  Fluxly
+//  Custom C++ classes for Fluxly, Musical Physics Looper
 //
-//  Created by as220 on 11/14/17.
-//
+//  Created by Shawn Wallace on 11/14/17.
+//  See the LICENSE file for copyright information
 
 #ifndef customClasses_h
 #define customClasses_h
