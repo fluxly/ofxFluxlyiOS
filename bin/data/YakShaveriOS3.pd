@@ -1,4 +1,4 @@
-#N canvas 375 34 379 590 10;
+#N canvas 306 49 379 590 10;
 #X obj 45 197 tgl 15 0 toggle0 empty empty 17 7 0 10 -258113 -1 -1
 0 1;
 #X obj 60 197 tgl 15 0 toggle1 empty empty 17 7 0 10 -260097 -1 -1
@@ -16,15 +16,15 @@
 #X floatatom 46 165 5 0 0 0 - - -, f 5;
 #X obj 69 383 loadbang;
 #X obj 69 470 s masterVolume;
-#N canvas 30 23 1295 691 scopes 0;
+#N canvas 101 23 1295 691 scopes 0;
 #X obj 48 73 clip~ -1 1;
 #X obj 80 102 loadbang;
 #X obj 85 152 metro 100;
 #X text 84 124 1;
 #X msg 84 124 1;
 #N canvas 0 22 450 300 (subpatch) 0;
-#X array scope0 512 float 2;
-#X coords 0 1 512 -1 200 140 1 0 0;
+#X array scope0 256 float 2;
+#X coords 0 1 256 -1 200 140 1 0 0;
 #X restore 163 70 graph;
 #X obj 53 296 clip~ -1 1;
 #X obj 85 325 loadbang;
@@ -32,8 +32,8 @@
 #X text 89 347 1;
 #X msg 89 347 1;
 #N canvas 0 22 450 300 (subpatch) 0;
-#X array scope1 512 float 2;
-#X coords 0 1 512 -1 200 140 1 0 0;
+#X array scope1 256 float 2;
+#X coords 0 1 256 -1 200 140 1 0 0;
 #X restore 168 293 graph;
 #X obj 56 522 clip~ -1 1;
 #X obj 88 551 loadbang;
@@ -41,8 +41,8 @@
 #X text 92 573 1;
 #X msg 92 573 1;
 #N canvas 0 22 450 300 (subpatch) 0;
-#X array scope2 512 float 2;
-#X coords 0 1 512 -1 200 140 1 0 0;
+#X array scope2 256 float 2;
+#X coords 0 1 256 -1 200 140 1 0 0;
 #X restore 171 519 graph;
 #X obj 426 68 clip~ -1 1;
 #X obj 458 97 loadbang;
@@ -50,8 +50,8 @@
 #X text 462 119 1;
 #X msg 462 119 1;
 #N canvas 0 22 450 300 (subpatch) 0;
-#X array scope3 512 float 2;
-#X coords 0 1 512 -1 200 140 1 0 0;
+#X array scope3 256 float 2;
+#X coords 0 1 256 -1 200 140 1 0 0;
 #X restore 541 65 graph;
 #X obj 432 298 clip~ -1 1;
 #X obj 464 327 loadbang;
@@ -59,8 +59,8 @@
 #X text 468 349 1;
 #X msg 468 349 1;
 #N canvas 0 22 450 300 (subpatch) 0;
-#X array scope4 512 float 2;
-#X coords 0 1 512 -1 200 140 1 0 0;
+#X array scope4 256 float 2;
+#X coords 0 1 256 -1 200 140 1 0 0;
 #X restore 547 295 graph;
 #X obj 437 521 clip~ -1 1;
 #X obj 469 550 loadbang;
@@ -68,8 +68,8 @@
 #X text 473 572 1;
 #X msg 473 572 1;
 #N canvas 0 22 450 300 (subpatch) 0;
-#X array scope5 512 float 2;
-#X coords 0 1 512 -1 200 140 1 0 0;
+#X array scope5 256 float 2;
+#X coords 0 1 256 -1 200 140 1 0 0;
 #X restore 552 518 graph;
 #X obj 26 13 catch~ scope0;
 #X obj 31 236 catch~ scope1;
@@ -89,8 +89,8 @@
 #X text 844 115 1;
 #X msg 844 115 1;
 #N canvas 0 22 450 300 (subpatch) 0;
-#X array scope6 512 float 2;
-#X coords 0 1 512 -1 200 140 1 0 0;
+#X array scope6 256 float 2;
+#X coords 0 1 256 -1 200 140 1 0 0;
 #X restore 923 61 graph;
 #X obj 786 4 catch~ scope6;
 #X obj 806 167 tabwrite~ scope6;
@@ -100,8 +100,8 @@
 #X text 845 341 1;
 #X msg 845 341 1;
 #N canvas 0 22 450 300 (subpatch) 0;
-#X array scope7 512 float 2;
-#X coords 0 1 512 -1 200 140 1 0 0;
+#X array scope7 256 float 2;
+#X coords 0 1 256 -1 200 140 1 0 0;
 #X restore 924 287 graph;
 #X obj 787 230 catch~ scope7;
 #X obj 807 393 tabwrite~ scope7;
@@ -119,8 +119,8 @@
 #X text 846 578 1;
 #X msg 846 578 1;
 #N canvas 0 22 450 300 (subpatch) 0;
-#X array previewScope 512 float 2;
-#X coords 0 1 512 -1 200 140 1 0 0;
+#X array previewScope 256 float 2;
+#X coords 0 1 256 -1 200 140 1 0 0;
 #X restore 925 524 graph;
 #X obj 788 467 catch~ previewScope;
 #X obj 771 664 throw~ audioOutPreview;
@@ -201,7 +201,7 @@
 -1 -1 0 1;
 #X obj 149 215 vsl 15 128 0 8 0 0 tempo7 empty empty 0 -9 0 10 -262144
 -1 -1 0 1;
-#N canvas 337 75 800 643 yak-shaver 1;
+#N canvas 337 75 800 643 yak-shaver 0;
 #X obj 44 73 tgl 15 0 empty toggle0 empty 17 7 0 10 -258113 -1 -1 0
 1;
 #X obj 43 26 r control0;
@@ -874,7 +874,7 @@
 #X obj 111 450 r previewTempo;
 #X obj 140 493 r previewFilename;
 #X obj 53 565 throw~ previewScope;
-#N canvas 109 32 946 646 yak-channelPreview 1;
+#N canvas 109 32 946 646 yak-channelPreview 0;
 #X obj 16 31 inlet;
 #X obj 147 25 inlet;
 #X obj 148 160 phasor~;
@@ -1526,10 +1526,10 @@
 #X floatatom 338 205 5 0 0 0 - - -, f 5;
 #X obj 338 144 t b, f 4;
 #X obj 490 156 t b;
-#X msg 438 240 \; inputBuffer resize \$1;
+#X msg 339 314 \; inputBuffer resize \$1;
 #X obj 336 231 * 44.1;
 #X obj 372 144 t b;
-#X obj 435 205 f;
+#X obj 336 279 f;
 #X obj 120 430 clip~ -1 1;
 #X obj 152 459 loadbang;
 #X obj 157 509 metro 100;

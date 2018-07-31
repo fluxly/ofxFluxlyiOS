@@ -19,7 +19,8 @@ void ofApp::setup(){
     screenW = [[UIScreen mainScreen] bounds].size.width;
     
     // For retina support
-    retinaScaling = [UIScreen mainScreen].scale;
+    //retinaScaling = [UIScreen mainScreen].scale;
+    retinaScaling = 1.5;
     screenW *= retinaScaling;
     screenH *= retinaScaling;
     ofLog(OF_LOG_VERBOSE, "SCALING %f:",retinaScaling);
@@ -491,6 +492,7 @@ void ofApp::draw() {
             mainMenu->drawBorder(currentGame);
             break;
         case GAME_SCENE:
+            ofTranslate(0, screenH*.3);
             ofSetHexColor(0xFFFFFF);
             ofSetRectMode(OF_RECTMODE_CORNER);
             background[backgroundId].draw(0, 0, screenW, screenH);
