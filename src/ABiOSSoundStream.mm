@@ -66,6 +66,8 @@ void ABiOSSoundStream::setOutput(ofBaseSoundOutput * soundOutput) {
 bool ABiOSSoundStream::setup(int numOfOutChannels, int numOfInChannels, int sampleRate, int bufferSize, int numOfBuffers) {
     close();
     
+    ofLog(OF_LOG_VERBOSE, "Set up audio stream");
+    
     this->numOfOutChannels = numOfOutChannels;
     this->numOfInChannels = numOfInChannels;
     this->sampleRate = sampleRate;
@@ -115,10 +117,11 @@ void ABiOSSoundStream::start(){
 
 //------------------------------------------------------------------------------
 void ABiOSSoundStream::stop(){
+    ofLog(OF_LOG_VERBOSE, "Start audio stream in");
     if(soundInputStream != NULL) {
         [(SoundInputStream *)soundInputStream stop];
     }
-    
+    ofLog(OF_LOG_VERBOSE, "Start audio stream out");
     if(soundOutputStream != NULL) {
         [(SoundOutputStream *)soundOutputStream stop];
     }
@@ -193,8 +196,10 @@ bool ABiOSSoundStream::setMixWithOtherApps(bool bMix){
 #ifdef __IPHONE_6_0
     if(bMix) {
         if([audioSession respondsToSelector:@selector(setCategory:withOptions:error:)]) {
-            if([audioSession setCategory:AVAudioSessionCategoryPlayback   // was PlayAndRecord
-                             withOptions:AVAudioSessionCategoryOptionMixWithOthers
+            if([audioSession setCategory:AVAudioSessionCategoryPlayAndRecord   // was PlayAndRecord
+                             withOptions:AVAudioSessionCategoryOptionAllowBluetooth|
+                                         AVAudioSessionCategoryOptionMixWithOthers|
+                                         AVAudioSessionCategoryOptionDefaultToSpeaker
                                    error:nil]) {
                 success = true;
             }
@@ -204,8 +209,10 @@ bool ABiOSSoundStream::setMixWithOtherApps(bool bMix){
         
         // this is the default category + options setup
         // Note: using a sound input stream will set the category to PlayAndRecord was AVAudioSessionCategorySoloAmbient
-        if([audioSession setCategory:AVAudioSessionCategoryPlayback
-                               withOptions:AVAudioSessionCategoryOptionMixWithOthers
+        if([audioSession setCategory:AVAudioSessionCategoryPlayAndRecord
+                         withOptions:AVAudioSessionCategoryOptionAllowBluetooth|
+                                     AVAudioSessionCategoryOptionMixWithOthers|
+                                     AVAudioSessionCategoryOptionDefaultToSpeaker
                                error:nil]) {
             
             success = true;

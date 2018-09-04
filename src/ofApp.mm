@@ -7,6 +7,16 @@
 #include "ofApp.h"
 #import <AVFoundation/AVFoundation.h>
 
+ABiOSSoundStream* ofApp::getSoundStream(){
+    return stream;
+}
+
+//--------------------------------------------------------------
+void ofApp::setupAudioStream(){
+    stream = new ABiOSSoundStream();
+    stream->setup(this, 2, 1, 44100, 512, 3);
+}
+
 //--------------------------------------------------------------
 void ofApp::setup(){
     ofSetLogLevel(OF_LOG_SILENT);       // OF_LOG_VERBOSE for testing, OF_LOG_SILENT for production
@@ -19,8 +29,8 @@ void ofApp::setup(){
     screenW = [[UIScreen mainScreen] bounds].size.width;
     
     // For retina support
-    //retinaScaling = [UIScreen mainScreen].scale;
-    retinaScaling = 1.5;
+    retinaScaling = [UIScreen mainScreen].scale;
+    //retinaScaling = 1.5;    // hack for iPad demo
     screenW *= retinaScaling;
     screenH *= retinaScaling;
     ofLog(OF_LOG_VERBOSE, "SCALING %f:",retinaScaling);
@@ -75,12 +85,19 @@ void ofApp::setup(){
     
     ofSetFrameRate(60);
     //ofEnableAntiAliasing();
+    volume = 1.0f;
+    myControlThread.setup(&volume);
     
-    ofSetHexColor(0xFFFFFF);
+  /* Moved this out of setup into its own state
+   ofSetHexColor(0xFFFFFF);
     ofSetRectMode(OF_RECTMODE_CENTER);
     helpFont.drawString("fluxly.com", screenW/2 - helpFont.stringWidth("fluxly.com")/2, screenH/2) ;
     [ofxiPhoneGetGLView() finishRender];
-    
+    */
+}
+
+void ofApp::setupPostSplashscreen() {
+    ofLog(OF_LOG_VERBOSE, "Post splashscreen");
     ofLog(OF_LOG_VERBOSE, ofxiOSGetDocumentsDirectory());  // useful for accessing documents directory in simulator
     
     // On first run, check if settings files are in documents directory; if not, copy from the bundle
@@ -109,18 +126,21 @@ void ofApp::setup(){
             }
         }
     }
-    
+    ofLog(OF_LOG_VERBOSE, "set samplerate");
     // try to set the preferred iOS sample rate, but get the actual sample rate
     // being used by the AVSession since newer devices like the iPhone 6S only
     // want specific values (ie 48000 instead of 44100)
-    float sampleRate = setAVSessionSampleRate(44100);
+    //float sampleRate = setAVSessionSampleRate(44100);
+    float sampleRate = 44100;
     
+    ofLog(OF_LOG_VERBOSE, "end set samplerate");
     // the number of libpd ticks per buffer,
     // used to compute the audio buffer len: tpb * blocksize (always 64)
     int ticksPerBuffer = 8; // 8 * 64 = buffer len of 512
     
-    // setup OF sound stream using the current *actual* samplerate
-    ofSoundStreamSetup(2, 1, this, sampleRate, ofxPd::blockSize()*ticksPerBuffer, 3);
+    // Pre-audiobus:
+    //setup OF sound stream using the current *actual* samplerate
+    // ofSoundStreamSetup(2, 1, this, sampleRate, ofxPd::blockSize()*ticksPerBuffer, 3);
     
     // setup Pd
     //
@@ -131,6 +151,7 @@ void ofApp::setup(){
     // note: you won't see any message prints until update() is called since
     // the queued messages are processed there, this is normal
     //
+     ofLog(OF_LOG_VERBOSE, "init libPd");
     if(!pd.init(2, 1, sampleRate, ticksPerBuffer-1, false)) {
         OF_EXIT_APP(1);
     }
@@ -161,6 +182,7 @@ void ofApp::setup(){
     
     ofSeedRandom();
     // audio processing on
+    ofLog(OF_LOG_VERBOSE, "start libPd");
     pd.start();
     pd.openPatch("YakShaveriOS3.pd");
     
@@ -253,6 +275,7 @@ void ofApp::setup(){
     dampOnOffGlow.load("dampOnOffGlow.png");
     
     saving.load("saving.png");
+    ofLog(OF_LOG_VERBOSE, "end Setup");
 }
 
 void ofApp::loadGame(int gameId) {
@@ -374,10 +397,11 @@ static bool shouldRemoveCircle(shared_ptr<FluxlyCircle>shape) {
 void ofApp::update() {
     switch (scene) {
         case MENU_SCENE:
-            mainMenu->updateScrolling();
-            
+            if (totallySetUp) mainMenu->updateScrolling();
+            instrumentOn = false;
             break;
         case GAME_SCENE:
+            instrumentOn = true;
             if (gameState == RUN) {
                 // since this is a test and we don't know if init() was called with
                 // queued = true or not, we check it here
@@ -473,6 +497,7 @@ void ofApp::update() {
             }
             break;
         case SELECT_SAMPLE_SCENE:
+            instrumentOn = true;
             sampleMenu->updateScrolling();
             if (!playRecordConsole->playing && !playRecordConsole->recording) pd.readArray("previewScope", playRecordConsole->scopeArray);
             if (playRecordConsole->playing) pd.readArray("previewScope", playRecordConsole->scopeArray);
@@ -487,12 +512,27 @@ void ofApp::update() {
 //--------------------------------------------------------------
 void ofApp::draw() {
     switch (scene) {
+        case SPLASHSCREEN:
+            ofSetHexColor(0x000000);
+            ofSetRectMode(OF_RECTMODE_CORNER);
+            ofDrawRectangle(0, 0, screenW, screenH);
+            ofSetHexColor(0xFFFFFF);
+            ofSetRectMode(OF_RECTMODE_CENTER);
+            helpFont.drawString("fluxly.com", screenW/2 - helpFont.stringWidth("fluxly.com")/2, screenH/2);
+            totallySetUp = false;
+            scene = MENU_SCENE;
+            break;
         case MENU_SCENE:
+            if (!totallySetUp) {
+                ofLog(OF_LOG_VERBOSE, "Totally Not Set Up");
+                setupPostSplashscreen();
+                totallySetUp = true;
+            }
             mainMenu->draw();
             mainMenu->drawBorder(currentGame);
             break;
         case GAME_SCENE:
-            ofTranslate(0, screenH*.3);
+            //ofTranslate(0, screenH*.3); // Hack for iPad demo
             ofSetHexColor(0xFFFFFF);
             ofSetRectMode(OF_RECTMODE_CORNER);
             background[backgroundId].draw(0, 0, screenW, screenH);
@@ -610,6 +650,8 @@ void ofApp::draw() {
 //--------------------------------------------------------------
 void ofApp::exit(){
     pd.sendFloat("masterVolume", 0.0);
+    myControlThread.stopThread();
+    ofSoundStreamClose();
 }
 
 void ofApp::saveGame() {
@@ -1041,7 +1083,7 @@ void ofApp::gotMemoryWarning(){
 
 //--------------------------------------------------------------
 void ofApp::deviceOrientationChanged(int newOrientation){
-
+   
 }
 
 void ofApp::contactStart(ofxBox2dContactArgs &e) {
@@ -1176,6 +1218,10 @@ float ofApp::setAVSessionSampleRate(float preferredSampleRate) {
     return session.sampleRate;
 }
 
+Boolean ofApp::instrumentIsOff() {
+        return !instrumentOn;
+}
+    
 void ofApp::helpLayerScript() {
     switch (scene) {
         case (MENU_SCENE) :

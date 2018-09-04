@@ -7,6 +7,8 @@
 #pragma once
 
 #include "ofxiOS.h"
+#include "controlThread.h"
+#include "ABiOSSoundStream.h"
 #include "ofxBox2d.h"
 #include "FluxlyClasses.h"
 #include "PdExternals.h"
@@ -42,12 +44,13 @@
 #define CHOOSE_LOOP (2)
 
 // Scenes
-#define MENU_SCENE (0)
-#define GAME_SCENE (1)
-#define RECORDING_SCENE (2)
-#define SAVE_EXIT_PART_1 (3)
-#define SAVE_EXIT_PART_2 (4)
-#define SELECT_SAMPLE_SCENE (5)
+#define SPLASHSCREEN (0)
+#define MENU_SCENE (1)
+#define GAME_SCENE (2)
+#define RECORDING_SCENE (3)
+#define SAVE_EXIT_PART_1 (4)
+#define SAVE_EXIT_PART_2 (5)
+#define SELECT_SAMPLE_SCENE (6)
 
 #define PHONE (0)
 #define TABLET (1)
@@ -107,6 +110,7 @@ class ofApp : public ofxiOSApp, public PdReceiver, public PdMidiReceiver {
 	
   public:
         void setup();
+        void setupPostSplashscreen();
         void update();
         void draw();
         void exit();
@@ -125,6 +129,11 @@ class ofApp : public ofxiOSApp, public PdReceiver, public PdMidiReceiver {
         void gotFocus();
         void gotMemoryWarning();
         void deviceOrientationChanged(int newOrientation);
+    
+        void setupAudioStream();
+        ABiOSSoundStream* stream;
+        ABiOSSoundStream* getSoundStream();
+        controlThread myControlThread;
     
         void reloadSamples();
         void takeScreenshot();
@@ -159,6 +168,8 @@ class ofApp : public ofxiOSApp, public PdReceiver, public PdMidiReceiver {
     // which may be different ie. iPhone 6S only wants 48k
     float setAVSessionSampleRate(float preferredSampleRate);
     
+    Boolean instrumentIsOff();
+    
     int startTouchId = 0;
     int startTouchX = 0;
     int startTouchY = 0;
@@ -166,12 +177,16 @@ class ofApp : public ofxiOSApp, public PdReceiver, public PdMidiReceiver {
     int currentHelpState = 0;
     int helpTimer2 = 0;
     int currentHelpState2 = 0;
-
+    bool totallySetUp = false;
+    
+    float volume;
+    Boolean instrumentOn;
+    
     int device = PHONE;
     float deviceScale = 1.0;
     int nIcons = 6;
     int nCircles;
-    int scene = MENU_SCENE;
+    int scene = SPLASHSCREEN;;
     int gameState = 0;
     bool firstRun = true;
     bool helpOn = true;

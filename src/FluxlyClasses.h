@@ -79,7 +79,7 @@ public:
     
     vector<float> scopeArray;
     
-    ofTrueTypeFont vag;
+   // ofTrueTypeFont vag;
     
     b2BodyDef * def;
     
@@ -93,7 +93,7 @@ public:
     void init() {
         myEyesOpen.load("eyesOpen.png");
         myEyesClosed.load("eyesClosed.png");
-        vag.load("vag.ttf", 9);
+        //vag.load("vag.ttf", 9);
         origType = type;
         setMesh();
         soundWaveStart = soundWaveStart*retinaScale;
@@ -198,8 +198,9 @@ public:
             ofSetColor(ofColor::fromHex(0x333333));
             for(int j = 0; j < scopeArray.size()-1; j++) {
               //  ofDrawLine(x,scopeArray[j]*soundWaveH, x+soundWaveW,scopeArray[j+1]*soundWaveH);
-              //  ofDrawLine(x-soundWaveStart,scopeArray[j]*soundWaveH, x-soundWaveStart+soundWaveW,scopeArray[j+1]*soundWaveH);
+                //ofDrawLine(x-soundWaveStart,scopeArray[j]*soundWaveH, x-soundWaveStart+soundWaveW,scopeArray[j+1]*soundWaveH);
                 ofDrawLine(x1,scopeArray[j]*soundWaveH, x1+soundWaveStep,scopeArray[j+1]*soundWaveH);
+                ofDrawLine(x1-soundWaveStart,scopeArray[j]*soundWaveH, x1-soundWaveStart+soundWaveStep,scopeArray[j+1]*soundWaveH);
                 x1 += soundWaveStep;
             }
             ofFill();
@@ -538,7 +539,7 @@ public:
         if (recording) {
             stopRecButton.draw(0, 0, playW, playW);
         } else {
-            if (selected < 15) {
+            if ((selected < 15) || playing) {
                recordDisabled.draw(0, 0, playW, playW);
             } else {
                 recordButton.draw(0, 0, playW, playW);
