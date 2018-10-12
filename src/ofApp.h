@@ -13,6 +13,7 @@
 #include "FluxlyClasses.h"
 #include "PdExternals.h"
 #include "ofxPd.h"
+#include "ofxMidi.h"
 #include "ofxXmlSettings.h"
 
 #define IOS
@@ -106,7 +107,8 @@ public:
     ofxBox2dJoint *joint;
 };
 
-class ofApp : public ofxiOSApp, public PdReceiver, public PdMidiReceiver {
+class ofApp : public ofxiOSApp, public PdReceiver, public PdMidiReceiver,
+              public ofxMidiListener, public ofxMidiConnectionListener{
 	
   public:
         void setup();
@@ -135,6 +137,14 @@ class ofApp : public ofxiOSApp, public PdReceiver, public PdMidiReceiver {
         ABiOSSoundStream* getSoundStream();
         controlThread myControlThread;
     
+        // midi message callback
+        void newMidiMessage(ofxMidiMessage& msg);
+                  
+        // midi device (dis)connection event callbacks
+        void midiInputAdded(string name, bool isNetwork);
+        void midiInputRemoved(string name, bool isNetwork);
+        vector<ofxMidiIn*> inputs;
+                  
         void reloadSamples();
         void takeScreenshot();
         void contactStart(ofxBox2dContactArgs &e);

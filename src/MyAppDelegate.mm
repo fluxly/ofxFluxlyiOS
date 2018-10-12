@@ -66,6 +66,7 @@ static NSString *const AUDIOBUS_API_KEY= @"H4sIAAAAAAAAA03NQQ7CIBAF0LvMuhZrozEcw
                                         .componentManufacturer = 'flux' }
                                    audioUnit:stream.audioUnit];
     [_audiobusController addAudioSenderPort:_audiobusSender];
+    
     if (IS_IPHONE) self.audiobusController.connectionPanelPosition = ABConnectionPanelPositionRight;
     if (IS_IPAD) self.audiobusController.connectionPanelPosition = ABConnectionPanelPositionTop;
     ofLog(OF_LOG_VERBOSE, "Finished Audiobus Controller");
@@ -80,7 +81,8 @@ static NSString *const AUDIOBUS_API_KEY= @"H4sIAAAAAAAAA03NQQ7CIBAF0LvMuhZrozEcw
     //only continue to generate sound when not connected to anything, maybe this needs a check for inter app audio too, but it works with garageband
     if ((dynamic_cast<ofApp*>(ofGetAppPtr())->instrumentIsOff())
         && !_audiobusController.connected && !_audiobusController.memberOfActiveAudiobusSession) {
-        AudioOutputUnitStop(dynamic_cast<ofApp*>(ofGetAppPtr())->getSoundStream()->getSoundOutStream().audioUnit);
+       // AudioOutputUnitStop(dynamic_cast<ofApp*>(ofGetAppPtr())->getSoundStream()->getSoundOutStream().audioUnit);
+       AudioOutputUnitStop(_audiobusSender.audioUnit);
         [[AVAudioSession sharedInstance] setActive:NO error:NULL];
     }
 }

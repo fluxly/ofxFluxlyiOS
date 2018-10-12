@@ -52,7 +52,7 @@
             <wasntSpinning>0</wasntSpinning>
             <dampingX>0.000000000</dampingX>
             <dampingY>0.000000000</dampingY>
-            <instrument>1</instrument>
+            <instrument>2</instrument>
             <connection1>-1</connection1>
             <connection2>-1</connection2>
             <connection3>-1</connection3>
@@ -71,7 +71,7 @@
             <wasntSpinning>0</wasntSpinning>
             <dampingX>0.000000000</dampingX>
             <dampingY>0.000000000</dampingY>
-            <instrument>1</instrument>
+            <instrument>3</instrument>
             <connection1>-1</connection1>
             <connection2>-1</connection2>
             <connection3>-1</connection3>
@@ -90,7 +90,7 @@
             <wasntSpinning>0</wasntSpinning>
             <dampingX>0.000000000</dampingX>
             <dampingY>0.000000000</dampingY>
-            <instrument>1</instrument>
+            <instrument>4</instrument>
             <connection1>-1</connection1>
             <connection2>-1</connection2>
             <connection3>-1</connection3>
@@ -109,7 +109,7 @@
             <wasntSpinning>0</wasntSpinning>
             <dampingX>0.000000000</dampingX>
             <dampingY>0.000000000</dampingY>
-            <instrument>1</instrument>
+            <instrument>5</instrument>
             <connection1>-1</connection1>
             <connection2>-1</connection2>
             <connection3>-1</connection3>
@@ -128,7 +128,7 @@
             <wasntSpinning>0</wasntSpinning>
             <dampingX>0.000000000</dampingX>
             <dampingY>0.000000000</dampingY>
-            <instrument>1</instrument>
+            <instrument>6</instrument>
             <connection1>-1</connection1>
             <connection2>-1</connection2>
             <connection3>-1</connection3>
@@ -147,7 +147,7 @@
             <wasntSpinning>0</wasntSpinning>
             <dampingX>0.000000000</dampingX>
             <dampingY>0.000000000</dampingY>
-            <instrument>1</instrument>
+            <instrument>7</instrument>
             <connection1>-1</connection1>
             <connection2>-1</connection2>
             <connection3>-1</connection3>
