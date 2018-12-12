@@ -472,7 +472,7 @@ void ofApp::update() {
                     if (applyDamping) circles[i].get()->setDamping(0, 0);
                     circles[i].get()->checkToSendNote();
                     circles[i].get()->checkToSendTempo();
-                    
+                    if (circles[i]->tempo != 0) midiSavedAngularVelocity[i] = circles[i]->body->GetAngularVelocity();
                     if (circles[i].get()->sendTempo) {
                         ofLog(OF_LOG_VERBOSE, "Changed tempo %d: %f", i, circles[i]->tempo);
                         pd.sendFloat("tempo"+to_string(circles[i].get()->instrument), circles[i]->tempo);
@@ -580,6 +580,7 @@ void ofApp::draw() {
             ofSetHexColor(0xFFFFFF);
             
             for (int i=0; i<circles.size(); i++) {
+                if (midiSaveState[i] || midiPlayState[i]) circles[i].get()->drawBlueGlow();
                 circles[i].get()->draw();
             }
             
@@ -1403,9 +1404,37 @@ void ofApp::touchUp(ofTouchEventArgs & touch){
     
     //--------------------------------------------------------------
     void ofApp::newMidiMessage(ofxMidiMessage& msg) {
+        
+        float bend = msg.bytes[1] + msg.bytes[2];
+        
+        for (int i=0; i < nCircles; i++) {
+            if ((msg.status == MIDI_NOTE_ON) && (msg.pitch == midiSaveKeys[i])) {
+                midiSaveState[i] = true;
+            }
+            if ((msg.status == MIDI_NOTE_OFF) && (msg.pitch == midiSaveKeys[i])) {
+                midiSaveState[i] = false;
+            }
+            if ((msg.status == MIDI_NOTE_ON) && (msg.pitch == midiPlayKeys[i])) {
+                midiPlayState[i] = true;
+                circles[i]->setAngularVelocity(0);
+            }
+            if ((msg.status == MIDI_NOTE_OFF) && (msg.pitch == midiPlayKeys[i])) {
+                midiPlayState[i] = false;
+                circles[i]->setAngularVelocity(midiSavedAngularVelocity[i]);
+            }
+           if ((msg.status == MIDI_PITCH_BEND) && (midiSaveState[i])) {
+                // map bend = 0 to 64 -> -8 to 0
+                // map bend = 64 to 255 -> 0 to 8
+                if (bend < 64) bend = ofMap(bend, 0, 64, -8, 0);
+                if (bend >= 64) bend = ofMap(bend, 64, 255, 0, 8);
+                midiSavedAngularVelocity[i] = bend;
+                circles[i]->setAngularVelocity(bend);
+            }
+        }
         ofLog(OF_LOG_VERBOSE, msg.toString());
-        ofLog(OF_LOG_VERBOSE, "%i", msg.bytes[0]);
-        ofLog(OF_LOG_VERBOSE, "%i", msg.bytes[1]);
+        ofLog(OF_LOG_VERBOSE, "Status %i", msg.status);
+        ofLog(OF_LOG_VERBOSE, "Pitch %i", msg.pitch);
+        ofLog(OF_LOG_VERBOSE, "Bend %f", bend);
     }
     
     //--------------------------------------------------------------

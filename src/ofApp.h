@@ -235,7 +235,7 @@ class ofApp : public ofxiOSApp, public PdReceiver, public PdMidiReceiver,
     int touchX[maxTouches] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
     int touchY[maxTouches] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
     int touchControl[maxTouches] = {-1, -1,-1,-1,-1,-1,-1,-1,-1,-1,-1};
-    
+                  
     ofDirectory dir;
     ofFile file;
     string documentsDir;
@@ -292,6 +292,12 @@ class ofApp : public ofxiOSApp, public PdReceiver, public PdMidiReceiver,
     vector <shared_ptr<FluxlyJointConnection> > joints;
     vector <shared_ptr<FluxlyConnection> > connections;
 
+    bool midiSaveState[8] = { false, false, false, false, false, false, false, false };
+    bool midiPlayState[8] = { false, false, false, false, false, false, false, false };
+    int midiSavedAngularVelocity[8] = { 1, 1, 1, 1, 1, 1, 1, 1 };
+                  
+    int midiSaveKeys[8] = { 48, 50, 52, 53, 55, 57, 59, 60 };
+    int midiPlayKeys[8] = { 60, 62, 64, 65, 67, 69, 71, 72 };
     ofImage toolbar;
     
     ofRectangle bounds;

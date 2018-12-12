@@ -280,6 +280,7 @@
 		9D6C0EE620A0E5E10096EDAF /* fluxlyTitleZero-ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D6C0EE420A0E5E00096EDAF /* fluxlyTitleZero-ipad.png */; };
 		9D6C0EE720A0E5E10096EDAF /* fluxlyTitleZero.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D6C0EE520A0E5E10096EDAF /* fluxlyTitleZero.png */; };
 		9D6C0EE920A0E5EB0096EDAF /* sample12.wav in Resources */ = {isa = PBXBuildFile; fileRef = 9D6C0EE820A0E5EA0096EDAF /* sample12.wav */; };
+		9D7ABEC12170FBA100699A10 /* blueGlow.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D7ABEC02170FBA100699A10 /* blueGlow.png */; };
 		9D8B0B0D207D177800AC404F /* consolePlayStop.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D8B0B0A207D177700AC404F /* consolePlayStop.png */; };
 		9D8B0B0E207D177800AC404F /* consolePlay.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D8B0B0B207D177700AC404F /* consolePlay.png */; };
 		9D8B0B0F207D177800AC404F /* consoleRecStop.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D8B0B0C207D177700AC404F /* consoleRecStop.png */; };
@@ -829,6 +830,7 @@
 		9D6C0EE420A0E5E00096EDAF /* fluxlyTitleZero-ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "fluxlyTitleZero-ipad.png"; sourceTree = "<group>"; };
 		9D6C0EE520A0E5E10096EDAF /* fluxlyTitleZero.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fluxlyTitleZero.png; sourceTree = "<group>"; };
 		9D6C0EE820A0E5EA0096EDAF /* sample12.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = sample12.wav; sourceTree = "<group>"; };
+		9D7ABEC02170FBA100699A10 /* blueGlow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blueGlow.png; sourceTree = "<group>"; };
 		9D8B0B0A207D177700AC404F /* consolePlayStop.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = consolePlayStop.png; sourceTree = "<group>"; };
 		9D8B0B0B207D177700AC404F /* consolePlay.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = consolePlay.png; sourceTree = "<group>"; };
 		9D8B0B0C207D177700AC404F /* consoleRecStop.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = consoleRecStop.png; sourceTree = "<group>"; };
@@ -1474,6 +1476,7 @@
 		9D255FC82026B907003989FB /* data */ = {
 			isa = PBXGroup;
 			children = (
+				9D7ABEC02170FBA100699A10 /* blueGlow.png */,
 				9D6C0EE820A0E5EA0096EDAF /* sample12.wav */,
 				9D6C0EE420A0E5E00096EDAF /* fluxlyTitleZero-ipad.png */,
 				9D6C0EE520A0E5E10096EDAF /* fluxlyTitleZero.png */,
@@ -2291,6 +2294,7 @@
 				9DB4B6FE20FC4A7500FB2DA8 /* FluxlyFeaturedGraphic.png in Resources */,
 				9DFDC12820792AB200BBDB9B /* game3.png in Resources */,
 				9D69A117208D282200F789C6 /* game0-ipad.png in Resources */,
+				9D7ABEC12170FBA100699A10 /* blueGlow.png in Resources */,
 				9D0043B2205F63B9001DFF83 /* mesh69.png in Resources */,
 				9D8B0B13207FCE7C00AC404F /* dampOnOff.png in Resources */,
 				9DF4132F20925FAF00D0358F /* mesh111.png in Resources */,

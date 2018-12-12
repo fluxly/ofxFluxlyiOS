@@ -69545,7 +69545,7 @@
      width="11in"
      inkscape:window-width="1365"
      inkscape:window-height="682"
-     inkscape:window-x="8"
+     inkscape:window-x="36"
      inkscape:window-y="0"
      inkscape:window-maximized="0"
      showguides="true"
@@ -69801,7 +69801,10 @@
          y="-2918.4851" /></text>
     <g
        id="g59202"
-       transform="translate(0,-130.57744)">
+       transform="translate(0,-130.57744)"
+       inkscape:export-filename="/Users/as220/Desktop/fluxlyIntro.png"
+       inkscape:export-xdpi="77.82"
+       inkscape:export-ydpi="77.82">
       <image
          inkscape:export-ydpi="72"
          inkscape:export-xdpi="72"

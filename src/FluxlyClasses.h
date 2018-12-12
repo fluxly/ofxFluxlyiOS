@@ -87,12 +87,14 @@ public:
     ofImage myEyesClosed;
     ofImage grayOverlay;
     ofImage spriteImg;
+    ofImage blueGlow;
     
     float retinaScale;
     
     void init() {
         myEyesOpen.load("eyesOpen.png");
         myEyesClosed.load("eyesClosed.png");
+        blueGlow.load("blueGlow.png");
         //vag.load("vag.ttf", 9);
         origType = type;
         setMesh();
@@ -144,6 +146,10 @@ public:
         }
         spriteImg.load(filename);
         spriteImg.getTexture().setTextureMinMagFilter(GL_NEAREST,GL_NEAREST);
+    }
+    
+    void setAngularVelocity(float v) {
+        body->SetAngularVelocity(v);
     }
     
     void checkToSendTempo() {
@@ -264,6 +270,13 @@ public:
         }
         // ofSetHexColor(0x000000);
         //vag.drawString(std::to_string(type), -5,-5);
+        ofPopMatrix();
+    }
+    
+    void drawBlueGlow() {
+        ofPushMatrix();
+        ofTranslate(x, y);
+        blueGlow.draw(0, 0, displayW*2, displayW*2);
         ofPopMatrix();
     }
     
